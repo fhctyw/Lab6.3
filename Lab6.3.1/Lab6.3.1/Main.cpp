@@ -14,7 +14,29 @@ void InitArray(int arr[], const int size)
 	}
 }
 
+template<typename T>
+void InitArray(T arr[], const T size)
+{
+	for (size_t i = 0; i < size; i++)
+	{
+		arr[i] = (T)(-10 + rand() % 21);
+	}
+}
+
 void PrintArray(const int* const arr, const int size)
+{
+	cout << "{";
+	for (size_t i = 0; i < size; i++)
+	{
+		cout << arr[i];
+		if (i != size - 1)
+			cout << ", ";
+	}
+	cout << "}" << endl;
+}
+
+template<typename T> 
+void PrintArray(const T* const arr, const T size)
 {
 	cout << "{";
 	for (size_t i = 0; i < size; i++)
@@ -43,17 +65,35 @@ void SortArray(int arr[], const int size)
 	}
 }
 
+template<typename T>
+void SortArray(T arr[], const T size)
+{
+	for (size_t i = 0, index = 0; i < size; i++)
+	{
+		int m = numeric_limits<T>::max();
+		for (size_t j = i; j < size; j++)
+		{
+			if (arr[j] < m) {
+				m = arr[j];
+				index = j;
+			}
+		}
+		arr[index] = arr[i];
+		arr[i] = m;
+	}
+}
+
 int main()
 {
 	srand(time(0));
 	int n;
 	cout << "n = "; cin >> n;
-	int *arr = new int[n];
+	int*arr = new int[n];
 
-	InitArray(arr, n);
-	PrintArray(arr, n);
-	SortArray(arr, n);
-	PrintArray(arr, n);
+	InitArray<int>(arr, n);
+	PrintArray<int>(arr, n);
+	SortArray<int>(arr, n);
+	PrintArray<int>(arr, n);
 
 	delete[] arr;
 	arr = nullptr;
