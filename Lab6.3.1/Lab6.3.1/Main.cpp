@@ -15,7 +15,7 @@ void InitArray(int arr[], const int size)
 }
 
 template<typename T>
-void InitArray(T arr[], const T size)
+void InitArray(T arr[], const size_t size)
 {
 	for (size_t i = 0; i < size; i++)
 	{
@@ -36,7 +36,7 @@ void PrintArray(const int* const arr, const int size)
 }
 
 template<typename T> 
-void PrintArray(const T* const arr, const T size)
+void PrintArray(const T* const arr, const size_t size)
 {
 	cout << "{";
 	for (size_t i = 0; i < size; i++)
@@ -66,7 +66,7 @@ void SortArray(int arr[], const int size)
 }
 
 template<typename T>
-void SortArray(T arr[], const T size)
+void SortArray(T arr[], const size_t size)
 {
 	for (size_t i = 0, index = 0; i < size; i++)
 	{
