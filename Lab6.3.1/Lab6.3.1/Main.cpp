@@ -48,20 +48,43 @@ void PrintArray(const T* const arr, const size_t size)
 	cout << "}" << endl;
 }
 
+int FindIndexMin(const int arr[], const int size, int start)
+{
+	int min = 22; // 22 = High + 1
+	int index = 0;
+	for (size_t i = start; i < size; i++)
+	{
+		if (arr[i] < min) {
+			min = arr[i];
+			index = i;
+		}
+	}
+	return index;
+}
+
+template<typename T>
+int FindIndexMin(const T arr[], const size_t size, size_t start)
+{
+	T min = (T)22;
+	size_t index = 0;
+	for (size_t i = start; i < size; i++)
+	{
+		if (arr[i] < min) {
+			min = arr[i];
+			index = i;
+		}
+	}
+	return index;
+}
+
 void SortArray(int arr[], const int size)
 {
-	for (size_t i = 0, index = 0; i < size; i++)
+	for (int i = 0, index = 0; i < size; i++)
 	{
-		int m = numeric_limits<int>::max();
-		for (size_t j = i; j < size; j++)
-		{
-			if (arr[j] < m) {
-				m = arr[j];
-				index = j;
-			}
-		}
+		index = FindIndexMin((const int*)arr, size, i);
+		int tmp = arr[index];
 		arr[index] = arr[i];
-		arr[i] = m;
+		arr[i] = tmp;
 	}
 }
 
@@ -70,16 +93,10 @@ void SortArray(T arr[], const size_t size)
 {
 	for (size_t i = 0, index = 0; i < size; i++)
 	{
-		int m = numeric_limits<T>::max();
-		for (size_t j = i; j < size; j++)
-		{
-			if (arr[j] < m) {
-				m = arr[j];
-				index = j;
-			}
-		}
+		index = FindIndexMin<T>((const T*)arr, size, i);
+		T tmp = arr[index];
 		arr[index] = arr[i];
-		arr[i] = m;
+		arr[i] = tmp;
 	}
 }
 
