@@ -58,49 +58,47 @@ void PrintArray(const T* const arr, const size_t size, size_t i)
 	}
 }
 
-int FindIndexMin(int arr[], int size, int &index, int i)
+void FindIndexMin(int arr[], int size, int & min, int &index, int i)
 {
-	index = -1;
 	if (i < size)
 	{
-		if (arr[i] < FindIndexMin(arr, size, index, i + 1)) {
+		if (arr[i] < min) {
 			index = i;
-			return arr[i];
+			min = arr[i];
+			FindIndexMin(arr, size, min, index, i + 1);
 		}
 		else
-			return FindIndexMin(arr, size, index, i + 1);
+			return FindIndexMin(arr, size, min, index, i + 1);
 	}
-	else return 22; // 22 = High + 1
 }
 
 template<typename T>
-T FindIndexMin(const T const arr[], size_t size, size_t& index, size_t i)
+void FindIndexMin(T arr[], size_t size, T& min, size_t& index, size_t i)
 {
-	index = -1;
 	if (i < size)
 	{
-		if (arr[i] < FindIndexMin<T>(arr, size, index, i + 1)) {
+		if (arr[i] < min) {
 			index = i;
-			return arr[i];
+			min = arr[i];
+			FindIndexMin<T>(arr, size, min, index, i + 1);
 		}
 		else
-			return FindIndexMin<T>(arr, size, index, i + 1);
+			return FindIndexMin<T>(arr, size, min, index, i + 1);
 	}
-	else return (T)22; // 22 = High + 1
 }
 
 void SortArray(int arr[], const int size, int i)
 {
 	if (i < size)
 	{
-		int index;
-		int m = FindIndexMin(arr, size, index, i);
+		int index = i;
+		int min = arr[i];
+		FindIndexMin(arr, size, min, index, i);
 		arr[index] = arr[i];
-		arr[i] = m;
+		arr[i] = min;
 		SortArray(arr, size, i+1);
 		return;
 	}
-
 }
 
 template<typename T>
@@ -108,10 +106,11 @@ void SortArray(T arr[], const size_t size, size_t i)
 {
 	if (i < size)
 	{
-		size_t index;
-		T m = FindIndexMin<T>((const T* const)arr, size, index, i);
+		size_t index = i;
+		T min = arr[i];
+		FindIndexMin<T>(arr, size, min, index, i);
 		arr[index] = arr[i];
-		arr[i] = m;
+		arr[i] = min;
 		SortArray<T>(arr, size, i + 1);
 		return;
 	}
